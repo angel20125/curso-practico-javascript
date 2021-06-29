@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!--font-->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Muli&display=swap"
+			rel="stylesheet"
+		/>
+		<!--Style-->
+		<link rel="stylesheet" href="./figuras-geometricas.css" />
+		<!--title-->
+		<title>
+			Figuras geométricas | Curso Práctico de JavaScript en Platzi
+		</title>
+	</head>
+
+	<body>
+		<header class="header">
+			<div class="header-container">
+				<h1 class="header__title">Figuras geométricas</h1>
+				<p class="header__description">
+					Este es el primer taller curso práctico de JavaScript
+				</p>
+			</div>
+		</header>
+		<!-- Cuadrado -->
+		<div class="wrapper">
+			<section class="cuadrado-container">
+				<h2>Calcula el área y perímetro de un cuadrado</h2>
+				<form class="form">
+					<label for="input_cuadradoLado">
+						Escribe cuánto mide cada lado de tu cuadrado:
+					</label>
+					<input
+						type="number"
+						id="input_cuadradoLado"
+						name="input_cuadradoLado"
+					/>
+					<br />
+
+					<button
+						type="button"
+						onclick="fn_calcularCuadradoPerimetro()"
+					>
+						Calcular el perímetro
+					</button>
+
+					<button type="button" onclick="fn_calcularCuadradoArea()">
+						Calcular el área
+					</button>
+					<br />
+
+					<label for="input_respCuadradoPerimetro">
+						Respuestas del perímetro del cuadrado:
+					</label>
+					<input
+						type="number"
+						id="input_respCuadradoPerimetro"
+						name="input_respCuadradoPerimetro"
+						placeholder="Valor del Perímetro"
+					/>
+					<br />
+
+					<label for="input_respCuadradoArea">
+						Respuestas del área del cuadrado:
+					</label>
+					<input
+						type="number"
+						id="input_respCuadradoArea"
+						name="input_respCuadradoArea"
+						placeholder="Valor del área"
+					/>
+				</form>
+			</section>
+
+			<!-- Triángulo -->
+			<section>
+				<h2>Calcula el área y perímetro de un triángulo</h2>
+				<form class="form">
+					<label for="input_trianguloLadoA">
+						Escribe cuánto mide el radio del cículo:
+					</label>
+					<input
+						id="input_trianguloLadoA"
+						name="input_trianguloLadoA"
+						type="number"
+					/>
+					<br />
+
+					<label for="input_trianguloLadoB">
+						Escribe cuánto mide lado "B" del triángulo:
+					</label>
+					<input
+						id="input_trianguloLadoB"
+						name="input_trianguloLadoB"
+						type="number"
+					/>
+					<br />
+
+					<label for="input_trianguloBase">
+						Escribe cuánto mide la "Base" del triángulo:
+					</label>
+					<input
+						id="input_trianguloBase"
+						name="input_trianguloBase"
+						type="number"
+					/>
+					<br />
+
+					<label for="input_trianguloAltura">
+						Escribe cuánto mide la "Altura" del triángulo:
+					</label>
+					<input
+						id="input_trianguloAltura"
+						name="input_trianguloAltura"
+						type="number"
+					/>
+					<br />
+
+					<button
+						type="button"
+						onclick="fn_calcularTrianguloPerimetro()"
+					>
+						Calcular el perímetro
+					</button>
+
+					<button type="button" onclick="fn_calcularTrianguloArea()">
+						Calcular el área
+					</button>
+					<br />
+
+					<label for="input_respTrianguloPerimetro">
+						Respuestas del perímetro del triángulo:
+					</label>
+					<input
+						type="number"
+						id="input_respTrianguloPerimetro"
+						name="input_respTrianguloPerimetro"
+						placeholder="Valor del Perímetro"
+					/>
+					<br />
+
+					<label for="input_respTrianguloArea">
+						Respuestas del área del triángulo:
+					</label>
+					<input
+						type="number"
+						name="input_respTrianguloArea"
+						id="input_respTrianguloArea"
+						placeholder="Valor del área"
+					/>
+				</form>
+			</section>
+			<!-- Círculo -->
+			<section>
+				<h2>Calcula el área y perímetro de un círculo</h2>
+				<form class="form">
+					<label for="input_circuloPI"> El valor de PI es: </label>
+					<input
+						id="input_circuloPI"
+						name="input_circuloPI"
+						type="number"
+					/>
+					<br />
+					<label for="input_circuloRadio">
+						Escribe cuánto mide el radio del círculo:
+					</label>
+					<input
+						id="input_circuloRadio"
+						name="input_circuloRadio"
+						type="number"
+					/>
+					<br />
+
+					<button
+						type="button"
+						onclick="fn_calcularCirculoPerimetro()"
+					>
+						Calcular el perímetro
+					</button>
+
+					<button type="button" onclick="fn_calcularCirculoArea()">
+						Calcular el área
+					</button>
+					<br />
+
+					<label for="input_respCirculoPerimetro">
+						Respuestas del perímetro del círculo:
+					</label>
+					<input
+						type="number"
+						id="input_respCirculoPerimetro"
+						name="input_respCirculoPerimetro"
+						placeholder="Valor del Perímetro"
+					/>
+					<br />
+
+					<label for="input_respCirculoArea">
+						Respuestas del área del cículo:
+					</label>
+					<input
+						type="number"
+						id="input_respCirculoArea"
+						name="input_respCirculoArea"
+						placeholder="Valor del área"
+					/>
+				</form>
+			</section>
+		</div>
+		<script src="./figuras-geometricos.js"></script>
+	</body>
+</html>
