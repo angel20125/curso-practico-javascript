@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>
+			Figuras geométricas | Curso Práctico de JavaScript en Platzi
+		</title>
+		<link rel="stylesheet" href="triangulo-isoceles.css" />
+	</head>
+
+	<body>
+		<header class="header">
+			<h1>Figuras geométricas</h1>
+			<p>Este es el primer taller del curso práctico de JavaScript</p>
+		</header>
+
+		<!-- Triángulo Isósceles-->
+		<div class="wrapper">
+			<section>
+				<h2>Calcula el área y perímetro de un triángulo isóceles</h2>
+				<form class="form">
+					<label for="input_trianguloIsocelesLadoA">
+						Escribe cuánto mide lado "A" del triángulo isóceles:
+					</label>
+					<input
+						class="input"
+						id="input_trianguloIsocelesLadoA"
+						name="input_trianguloIsocelesLadoA"
+						type="number"
+					/>
+
+					<label for="input_trianguloIsocelesLadoB">
+						Escribe cuánto mide lado "B" del triángulo isóceles:
+					</label>
+					<input
+						class="input"
+						id="input_trianguloIsocelesLadoB"
+						name="input_trianguloIsocelesLadoB"
+						type="number"
+					/>
+
+					<label for="input_trianguloIsocelesBase">
+						Escribe cuánto mide la "Base" del triángulo:
+					</label>
+					<input
+						class="input"
+						id="input_trianguloIsocelesBase"
+						name="input_trianguloIsocelesBase"
+						type="number"
+					/>
+
+					<div class="error" id="error">
+						<p>
+							Error: <br />
+							- "Lado A" debe ser igual a "Lado B". <br />
+							- "Lado A", "Lado B" y "Base" debe ser diferente a
+							0.
+							<br />
+							- "Base" debe ser diferente a "Lado A", "Lado B".
+							<br />
+						</p>
+					</div>
+
+					<button
+						class="button"
+						type="button"
+						onclick="fn_calcularTrianguloIsocelesAltrura()"
+					>
+						Calcular la altura
+					</button>
+
+					<button
+						class="button"
+						type="button"
+						onclick="fn_calcularTrianguloIsocelesArea()"
+					>
+						Calcular el área
+					</button>
+
+					<button
+						class="button"
+						type="button"
+						onclick="fn_calcularTrianguloIsocelesPerimetro()"
+					>
+						Calcular el perímetro
+					</button>
+
+					<label for="input_respTrianguloIsocelesAltura">
+						Respuestas de la altura del triangulo isóceles
+					</label>
+					<input
+						class="input"
+						id="input_respTrianguloIsocelesAltura"
+						name="input_respTrianguloIsocelesAltura"
+						type="number"
+						placeholder="Valor del la Altura "
+					/>
+
+					<label for="input_respTrianguloIsocelesArea">
+						Respuestas del área del triángulo isóceles:
+					</label>
+					<input
+						class="input"
+						type="number"
+						name="input_respTrianguloIsocelesArea"
+						id="input_respTrianguloIsocelesArea"
+						placeholder="Valor del área"
+					/>
+
+					<label for="input_respTrianguloIsocelesPerimetro">
+						Respuestas del perímetro del triángulo isóceles:
+					</label>
+					<input
+						class="input"
+						type="number"
+						id="input_respTrianguloIsocelesPerimetro"
+						name="input_respTrianguloIsocelesPerimetro"
+						placeholder="Valor del Perímetro"
+					/>
+				</form>
+			</section>
+		</div>
+		<script src="./triangulos-isoceles.js"></script>
+	</body>
+</html>

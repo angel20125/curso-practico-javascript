@@ -73,12 +73,12 @@ function fn_trianguloArea(p_trianguloBase, p_trianguloAltura) {
 function fn_calcularTrianguloPerimetro() {
 	const trianguloLadoA = parseFloat(input_trianguloLadoA.value);
 	const trianguloLadoB = parseFloat(input_trianguloLadoB.value);
-	const trinaguloBase = parseFloat(input_trianguloBase.value);
+	const trianguloBase = parseFloat(input_trianguloBase.value);
 
 	const trianguloPerimetro = fn_trainguloPerimetro(
 		trianguloLadoA,
 		trianguloLadoB,
-		trinaguloBase
+		trianguloBase
 	);
 
 	input_respTrianguloPerimetro.value = trianguloPerimetro;
@@ -86,17 +86,17 @@ function fn_calcularTrianguloPerimetro() {
 	console.group('Triángulo');
 	console.log('El lado A del triángulo a mide: ' + trianguloLadoA + 'cm,');
 	console.log('El lado B del triángulo b mide: ' + trianguloLadoB + 'cm,');
-	console.log('La base o lado C del triángulo mide: ' + trinaguloBase + 'cm');
+	console.log('La base o lado C del triángulo mide: ' + trianguloBase + 'cm');
 	console.log(
 		'El perímetro del triángulo mide: ' + trianguloPerimetro + 'cm'
 	);
 }
 
 function fn_calcularTrianguloArea() {
-	const trinaguloBase = parseFloat(input_trianguloBase.value);
+	const trianguloBase = parseFloat(input_trianguloBase.value);
 	const trianguloAltura = parseFloat(input_trianguloAltura.value);
 
-	const trianguloArea = fn_trianguloArea(trinaguloBase, trianguloAltura);
+	const trianguloArea = fn_trianguloArea(trianguloBase, trianguloAltura);
 
 	input_respTrianguloArea.value = trianguloArea;
 
