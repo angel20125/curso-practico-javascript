@@ -21,7 +21,7 @@ Curso práctico de Javascript en platzi
 
 ## Taller #3: promedio, mediana y moda
 
--   Primer paso: definir las fórmulas del promedio, median y moda
+-   Primer paso: definir las fórmulas del promedio, mediana y moda
 -   Segundo paso: implementar la fórmulas en JavaScript
 -   Tercer paso: crear funciones
 -   Cuarto paso: integrar JS con HTML
