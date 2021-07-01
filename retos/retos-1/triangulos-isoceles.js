@@ -74,7 +74,6 @@ function fn_encontrarUnLado(ladoA, ladoBase) {
 	ladoB = Math.sqrt(ladoB);
 
 	return ladoB;
-	// referencia : https://www.youtube.com/watch?v=7zWtpaz_yl0
 }
 
 function fn_trianguloIsocelesArea(p_trianguloBase, p_trinaguloIsocelesAltura) {
