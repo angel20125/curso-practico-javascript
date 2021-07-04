@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="./productos-y-descuentos-con-cupones.css"
+		/>
+		<title>Porcentajes y descuento</title>
+	</head>
+	<body>
+		<header class="header">
+			<h1>Descuentos y porcentajes</h1>
+			<p>Segundo taller del curso práctico de javascrip</p>
+		</header>
+
+		<section class="wrapper">
+			<form action="" class="form">
+				<!-- valor del producto -->
+				<label for="inputPriceProduct"
+					>Ingrese el precio del producto</label
+				>
+				<input id="inputPriceProduct" type="number" class="input" />
+
+				<!-- nombre del cupón -->
+				<label for="inputCouponName">Ingrese el nombre del cupon</label>
+				<input id="inputCouponName" type="text" class="input" />
+
+				<button
+					class="button"
+					type="button"
+					onclick="onclickButtonDiscountPrice()"
+				>
+					Calcular Descuento
+				</button>
+
+				<p id="resultOperations"></p>
+			</form>
+		</section>
+
+		<script src="productos-y-descuentos-con-cupones.js"></script>
+	</body>
+</html>
