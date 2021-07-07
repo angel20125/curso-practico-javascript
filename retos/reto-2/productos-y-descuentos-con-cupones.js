@@ -20,7 +20,7 @@ const inputPriceProduct = document.getElementById('inputPriceProduct');
 const inputCouponName = document.getElementById('inputCouponName');
 const resultOperations = document.getElementById('resultOperations');
 
-// fución encargada de calcular el descuento
+// función encargada de calcular el descuento
 function fn_calculateDiscountPrice(p_priceProduct, p_porcentageDiscount) {
 	const priceProductWithDiscount =
 		(p_priceProduct * (_PORCENTAGE_OF_100_ - p_porcentageDiscount)) / 100;
