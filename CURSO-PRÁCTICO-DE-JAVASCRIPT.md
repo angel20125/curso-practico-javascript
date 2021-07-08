@@ -402,10 +402,14 @@ switch (tipoDeSuscripcion) {
 		console.log('Solo puedes tomar los cursos gratis');
 		break;
 	case 'Basic':
-		console.log('Puedes tomar casi todos los cursos de Platzi durante un mes');
+		console.log(
+			'Puedes tomar casi todos los cursos de Platzi durante un mes'
+		);
 		break;
 	case 'Expert':
-		console.log('Puedes tomar casi todos los cursos de Platzi durante un año');
+		console.log(
+			'Puedes tomar casi todos los cursos de Platzi durante un año'
+		);
 		break;
 	case 'Expert+':
 		console.log(
@@ -883,10 +887,13 @@ console.group('nombre de la agrupación');
 console.groupEnd();
 ```
 
--   Ejemplo de la agrupación de mensajes por la consola de js
+### Programación del Taller 1 : parte 1
 
 ```javascript
-// Cuadrado
+//===========================
+//      ==Cuadrado==
+//===========================
+
 console.group('Cuadrado');
 
 const cuadradoLado = 5;
@@ -900,7 +907,10 @@ console.log('El área del cuadro mide : ' + cuadradoArea + 'cm^2');
 
 console.groupEnd();
 
-//Triángulo
+//===========================
+//      ==Triángulo==
+//===========================
+
 console.group('Triángulo');
 
 const trianguloLado_a = 6;
@@ -920,7 +930,10 @@ console.log('El area triángulo mide: ' + trianguloArea + 'cm^2');
 
 console.groupEnd();
 
-// Círculo
+//===========================
+//      ==Círculo==
+//===========================
+
 console.group('Círculo');
 
 const PI = Math.PI;
@@ -936,3 +949,1302 @@ console.log('El área triángulo mide: ' + circuloArea + 'cm^2');
 
 console.groupEnd();
 ```
+
+## 7. Encapsulando código en funciones
+
+### ¿Qué es una función?
+
+Las funciones son como un conjunto de sentencias para realizar ciertas tareas o acciones y en ellas se puede hacer el uso de las variables
+
+### Funciones Declarativas
+
+Las funciones declarativas son aquellas que expresamente se declara con la palabra reservada `funtion` seguida el del nombre y sus parámetros.
+
+### Sintaxis funciones declarativas
+
+```javascript
+function [name]([param1, param2, ..., paramN]) {
+   statements
+}
+```
+
+Ejemplo de una función declarativa
+
+```javascript
+// Declaración de una Funcion Declarativa
+function saludar() {
+	console.log('Saludando desde una función declarativa');
+}
+//llamada de la función declarativa
+saludar();
+```
+
+### llamar funciones dentro de otras funciones
+
+También puede darse la situación de que se pueda llamar una función dentro de otra función
+
+Ejemplo:
+
+```javascript
+// Círculo
+console.group('Círculo');
+
+const PI = Math.PI;
+const circuloRadio = 4;
+
+function fn_circuloDiametro(p_circuloRadio) {
+	return p_circuloRadio * PI;
+}
+
+//llamando una función dentro de otra función
+function fn_circuloArea(p_circuloRadio) {
+	// es equivalente a = p_circuloRadio *  p_circuloRadio * PI
+	return fn_circuloDiametro(p_circuloRadio) * p_circuloRadio;
+}
+
+const circuloDiametro = fn_circuloDiametro(circuloRadio);
+const circuloArea = fn_circuloArea(circuloRadio);
+
+console.log('La constante PI es de: ' + PI);
+console.log('El radio del círculo mide ' + circuloRadio + 'cm');
+console.log('El diametro del circulo es : ' + circuloDiametro + 'cm');
+console.log('El área triángulo mide: ' + circuloArea + 'cm^2');
+
+console.groupEnd();
+```
+
+### funciones como argumentos de una función
+
+En javascript se puede enviar funciones como argumentos de otras funciones.
+
+```javascript
+function fn_sumar(num1, num2, respuesta) {
+	respuesta = num1 + num2;
+	console.log(`El resultado de la suma es: ${respuesta}`);
+}
+
+function datos_de_suma(fn_sumar) {
+	var num1 = 5;
+	var num2 = 6;
+	var respuesta;
+	if (fn_sumar) {
+		//la función es invocada o ejecutada
+		fn_sumar(num1, num2, respuesta);
+	}
+}
+
+// se pasa la referencia de  la función. No es una invocación
+datos_de_suma(fn_sumar);
+```
+
+Otro ejemplo de funciones por argumentos
+
+```javascript
+class Persona {
+	constructor(nombre, apellido, altura) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.altura = altura;
+	}
+	saludar(fn_responderSaludo) {
+		//de-estructuracion
+		// var nombre = this.nombre
+		// var apellido = this.apellido
+		var { nombre, apellido } = this;
+		console.log(`Hola, me llamo ${nombre} ${apellido}`);
+		if (fn_responderSaludo) {
+			//la función es invocada
+			fn_responderSaludo(nombre, apellido, false);
+		}
+	}
+}
+
+class Desarrollador extends Persona {
+	constructor(nombre, apellido, altura) {
+		super(nombre, apellido, altura);
+	}
+	saludar(fn_responderSaludo) {
+		//de-estructuracion
+		// var nombre = this.nombre
+		// var apellido = this.apellido
+		var { nombre, apellido } = this;
+		console.log(
+			`Hola, me llamo ${nombre} ${apellido} y soy desarrollador/a`
+		);
+		if (fn_responderSaludo) {
+			// la función es invocada
+			fn_responderSaludo(nombre, apellido, true);
+		}
+	}
+}
+
+// función que se pasará por parámetro
+function responderSaludo(nombre, apellido, esDev) {
+	console.log('==================');
+	console.log('Respondiendo Saludo');
+	console.log(`Buen día ${nombre} ${apellido}`);
+	if (esDev) {
+		console.log(
+			`Eres desarrollador/a,
+			¡Que bueno! podemos hablar de muchos temas (^.^)`
+		);
+	} else {
+		console.log(
+			`No eres desarrollador/a,
+			pero igual podemos conversar de otros temas (^.^)`
+		);
+	}
+	console.log('______________________________________________');
+}
+
+var sacha = new Persona('Sacha', 'Lifszyc', 1.72);
+var erika = new Persona('Erika', 'Luna', 1.65);
+var arturo = new Desarrollador('Arturo', 'Martinez', 1.89);
+
+// Se  pasa la referencia de  la función. No es una invocación
+sacha.saludar(responderSaludo);
+// Se  pasa la referencia de  la función. No es una invocación
+erika.saludar(responderSaludo);
+// Se  pasa la referencia de  la función. No es una invocación
+arturo.saludar(responderSaludo);
+```
+
+### Programción del taller 1 : parte 2
+
+```javascript
+//===========================
+//      ==Cuadrado==
+//===========================
+console.group('Cuadrado');
+
+const cuadradoLado = 5;
+
+function fn_cuadradoPerimetro(p_cuadradoLado) {
+	return p_cuadradoLado * 4;
+}
+
+function fn_cuadradoArea(p_cuadradoLado) {
+	return p_cuadradoLado * p_cuadradoLado;
+}
+
+const cuadradoPerimetro = fn_cuadradoPerimetro(cuadradoLado);
+const cuadradoArea = fn_cuadradoArea(cuadradoLado);
+
+console.log('Los lados del cuadro mide : ' + cuadradoLado + 'cm');
+console.log('El perímetro del cuadro mide : ' + cuadradoPerimetro + 'cm^2');
+console.log('El área del cuadro mide : ' + cuadradoArea + 'cm^2');
+
+console.groupEnd();
+
+//===========================
+//      ==Triángulo==
+//===========================
+
+console.group('Triángulo');
+
+const trianguloLado_a = 6;
+const trianguloLado_b = 6;
+const trinaguloBase = 4;
+const trianguloAltura = 5.5;
+
+function fn_trainguloPerimetro(
+	p_trainguloLado_a,
+	p_trainguloLado_b,
+	p_trainguloLado_base
+) {
+	return trianguloLado_a + trianguloLado_b + trinaguloBase;
+}
+
+function fn_trianguloArea(p_trianguloBase, p_trianguloAltura) {
+	return (p_trianguloBase * p_trianguloAltura) / 2;
+}
+
+const trianguloPerimetro = fn_trainguloPerimetro(
+	trianguloLado_a,
+	trianguloLado_b,
+	trinaguloBase
+);
+const trianguloArea = fn_trianguloArea(trinaguloBase, trianguloAltura);
+
+console.log('El lado A del triángulo a mide: ' + trianguloLado_a + 'cm,');
+console.log('El lado B del triángulo b mide: ' + trianguloLado_b + 'cm,');
+console.log('La base o lado C del triángulo mide: ' + trinaguloBase + 'cm');
+console.log('La altura del triángulo mide: ' + trianguloAltura + 'cm');
+console.log('El perímetro del triángulo mide: ' + trianguloPerimetro + 'cm');
+console.log('El area triángulo mide: ' + trianguloArea + 'cm^2');
+
+console.groupEnd();
+
+//===========================
+//      ==Círculo==
+//===========================
+
+console.group('Círculo');
+
+const PI = Math.PI;
+const circuloRadio = 4;
+
+function fn_circuloDiametro(p_circuloRadio) {
+	return p_circuloRadio * PI;
+}
+
+function fn_circuloArea(p_circuloRadio) {
+	return p_circuloRadio * p_circuloRadio * PI;
+}
+
+const circuloDiametro = fn_circuloDiametro(circuloRadio);
+const circuloArea = fn_circuloArea(circuloRadio);
+
+console.log('La constante PI es de: ' + PI);
+console.log('El radio del círculo mide ' + circuloRadio + 'cm');
+console.log('El diametro del circulo es : ' + circuloDiametro + 'cm');
+console.log('El área triángulo mide: ' + circuloArea + 'cm^2');
+
+console.groupEnd();
+```
+
+## 8. Interactuando con JavaScript desde HTML
+
+### etiquetas html vistas en clases
+
+-   h1-h6
+    Representa los títulos que se puede colocar en nuestro documento html
+
+-   header
+    El "header" representa un encabezado o sección del documento. El elemento de encabezado se usa típicamente para agrupar un conjunto de elementos h1 – h6 para marcar el título de una página con su subtítulo o lema. Sin embargo, los elementos de encabezado pueden contener más que solo los encabezados y subtítulos de la sección, por ejemplo, información del historial de versiones o fecha de publicación, menús entre otro.
+
+-   section
+    Representa un documento genérico o una sección de aplicación. En este contexto, una sección es una agrupación temática de contenido, normalmente con un encabezado, posiblemente con un pie de página. Los ejemplos incluyen capítulos de un libro, las distintas páginas con pestañas en un cuadro de diálogo con pestañas o las secciones numeradas de una tesis. La página de inicio de un sitio web se puede dividir en secciones para una introducción, noticias e información de contacto
+
+-   form
+    El elemento form son formularios son elementos que representa una colección de elementos asociados al este mismo, algunos de los cuales pueden representar valores editables que pueden enviarse a un servidor para su procesamiento.
+
+Al crear un botón dentro de un formulario se recarga la página automáticamente debido a que los botones son de tipo submit por defecto. Este tipo de botón envía la información de los formularios.
+
+-   input
+    El elemento input, es un elemento de entrada representa un campo de datos escrito, generalmente con un control de formulario para permitir al usuario editar los datos.
+
+```html
+<input
+	class="input"
+	type="number"
+	id="input_respCuadradoPerimetro"
+	name="input_respCuadradoPerimetro"
+	placeholder="Valor del Perímetro"
+/>
+```
+
+Los siguientes atributos se le pueden aplicar
+
+class, es aplicar estilos de css.
+type, define el tipo datos que recibirá.
+id, define un identificador para el elemento html
+name, define un identificador y se puede asociar a un grupo de elementos
+
+-   button
+    El elemento botón representa un botón. Si el elemento no está deshabilitado, entonces el agente de usuario debe permitir que el usuario active el botón
+
+```html
+<button
+	class="button"
+	type="button"
+	onclick="fn_calcularCuadradoArea()"
+></button>
+```
+
+Los siguientes atributos se le pueden aplicar
+
+class, es aplicar estilos de css.
+type, define el tipo de botón. en los formularios por defecto de tipo submit.
+onclick, define la ejecución del evento click. Esto puede ser la llamada de una función javascript
+
+referencia
+
+-   [Más elementos en html5doctor](http://html5doctor.com/)
+
+### Elementos javascript asociado a html
+
+-   Para asociar elementos html con javascript se utiliza el método `document.getElementById('id_elemento_html')` y luego lo asignamos a una variable o constante javascript
+
+```javascript
+const input_cuadradoLado = document.getElementById('input_cuadradoLado');
+```
+
+-   Para enviar valores de los elementos html hacia javascript, se utiliza `document.getElementById('id_elemento_html').value` . Otra forma es asignar el elemento html y luego obtener el valor
+
+```javascript
+const input_cuadradoLado = document.getElementById('input_cuadradoLado');
+const cuadradoLado = parseFloat(input_cuadradoLado.value);
+```
+
+Ejemplo de obteniendo/enviados valores desde javascript a html
+
+```html
+<!-- Cuadrado -->
+<section class="cuadrado-container">
+	<h2>Calcula el área y perímetro de un cuadrado</h2>
+	<form class="form">
+		<label for="input_cuadradoLado">
+			Escribe cuánto mide cada lado de tu cuadrado:
+		</label>
+		<input
+			class="input"
+			type="number"
+			id="input_cuadradoLado"
+			name="input_cuadradoLado"
+		/>
+		<br />
+		<button
+			class="button"
+			type="button"
+			onclick="fn_calcularCuadradoPerimetro()"
+		>
+			Calcular el perímetro
+		</button>
+
+		<button
+			class="button"
+			type="button"
+			onclick="fn_calcularCuadradoArea()"
+		>
+			Calcular el área
+		</button>
+		<br />
+
+		<label for="input_respCuadradoPerimetro">
+			Respuestas del perímetro del cuadrado:
+		</label>
+		<input
+			class="input"
+			type="number"
+			id="input_respCuadradoPerimetro"
+			name="input_respCuadradoPerimetro"
+			placeholder="Valor del Perímetro"
+		/>
+		<br />
+
+		<label for="input_respCuadradoArea">
+			Respuestas del área del cuadrado:
+		</label>
+		<input
+			class="input"
+			type="number"
+			id="input_respCuadradoArea"
+			name="input_respCuadradoArea"
+			placeholder="Valor del área"
+		/>
+	</form>
+</section>
+```
+
+```javascript
+//===========================
+//      ==Cuadrado==
+//===========================
+
+const input_cuadradoLado = document.getElementById('input_cuadradoLado');
+const input_respCuadradoArea = document.getElementById(
+	'input_respCuadradoArea'
+);
+const input_respCuadradoPerimetro = document.getElementById(
+	'input_respCuadradoPerimetro'
+);
+
+function fn_cuadradoPerimetro(p_cuadradoLado) {
+	return p_cuadradoLado * 4;
+}
+
+function fn_cuadradoArea(p_cuadradoLado) {
+	return p_cuadradoLado * p_cuadradoLado;
+}
+
+function fn_calcularCuadradoPerimetro() {
+	const cuadradoLado = parseFloat(input_cuadradoLado.value);
+	const cuadradoPerimetro = fn_cuadradoPerimetro(cuadradoLado);
+
+	input_respCuadradoPerimetro.value = cuadradoPerimetro;
+
+	console.group('Cuadrado');
+	console.log('Los lados del cuadro mide : ' + cuadradoLado + 'cm');
+	console.log('El perímetro del cuadro mide : ' + cuadradoPerimetro + 'cm');
+}
+
+function fn_calcularCuadradoArea() {
+	const cuadradoLado = parseFloat(input_cuadradoLado.value);
+	const cuadradoArea = fn_cuadradoArea(cuadradoLado);
+
+	input_respCuadradoArea.value = cuadradoArea;
+
+	console.log('El área del cuadro mide : ' + cuadradoArea + 'cm^2');
+	console.groupEnd();
+}
+```
+
+Referencia de repositorio
+
+-   [repositorio: angel20125](https://github.com/angel20125/curso-practico-javascript)
+
+## 9. Reto: matemáticas con JavaScript
+
+### Objetivo de este taller
+
+En este ejercicio debes crear una función para calcular la altura de un triángulo isósceles.
+
+### Pasos a ejecutar
+
+-   La función debe recibir, como parámetros, la longitud de los 3 lados del triángulo.
+-   La función debe validar que la longitud de los 3 lados del triángulo corresponden a un triángulo isósceles.
+-   La función debe retornar la altura del triángulo.
+
+> Pista: la función Math.sqrt de JavaScript puede ayudarte a calcular raíces cuadradas.
+
+Referencia:
+
+-   [Encontrar un lado de un triángulo ](https://www.youtube.com/watch?v=7zWtpaz_yl0)
+
+-   [Math.sqrt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt)
+
+## Reto 1 completado
+
+-   [reto 1](https://github.com/angel20125/curso-practico-javascript/tree/main/retos/retos-1) completado
+
+# Capítulo III: Taller #2 precios y descuentos
+
+## 10. Análisis: cómo calcular porcentajes y descuentos
+
+En este taller se creará un programa que realiza descuento a productos a facturar.
+
+### Análisis para realizar programa de porcentajes y descuentos
+
+-   Primer paso: definir las fórmulas de los porcentajes y descuentos
+-   Segundo paso: implementar la fórmula en JavaScript
+-   Tercer paso: crear funciones
+-   Cuarto paso: integrar JS con HTML
+
+### Definiendo fórmulas de porcentajes y descuento
+
+La formula para hacerlo escalable, es decir para cualquier precio y cualquier descuento es:
+
+```javascript
+const _PORCENTAJE_TOTAL_ = 100;
+const _PORCENTAJE_DESCUENTO_ = 15;
+
+let precio_producto = 100;
+let precio_con_descuento = 0;
+
+precio_con_descuento =
+	(precio_producto * (_PORCENTAJE_TOTAL_ - _PORCENTAJE_DESCUENTO_)) / 100;
+
+console.log(`${precio_producto}`);
+console.log(`${precio_con_descuento}`);
+```
+
+## 11. Convertir en función el análisis realizado
+
+Se convierte en función la formula anteriormente realizada
+
+```javascript
+const _PORCENTAJE_TOTAL_ = 100;
+
+function fn_calcularPrecioConDescuento(
+	p_precioProducto,
+	p_porcentajeDescuento
+) {
+	const precioProductoConDescuento =
+		(p_precioProducto * (_PORCENTAJE_TOTAL_ - p_porcentajeDescuento)) / 100;
+
+	console.group('fn_calcularPrecioConDescuento');
+	console.log({
+		p_precioProducto,
+		p_porcentajeDescuento,
+		_PORCENTAJE_TOTAL_,
+		precioProductoConDescuento,
+	});
+	console.groupEnd();
+
+	return precioProductoConDescuento;
+}
+
+fn_calcularPrecioConDescuento(100, 15);
+fn_calcularPrecioConDescuento(280, 15);
+fn_calcularPrecioConDescuento(300, 15);
+```
+
+### console.log ({})
+
+Algo importante a destacar es que se puede utilizar un objeto en un console.log para imprimir todas las variables. Algo que ocurre en javascript es que cuando se coloca la key del objeto javascript automáticamente entiende que el valor de key está contenido en una variable del mismo nombre
+
+En los dos ejemplos que siguen son equivalentes
+
+```javascript
+console.group('fn_calcularPrecioConDescuento');
+console.log({
+	p_precioProducto,
+	p_porcentajeDescuento,
+	_PORCENTAJE_TOTAL_,
+	precioProductoConDescuento,
+});
+console.groupEnd();
+```
+
+```javascript
+console.group('fn_calcularPrecioConDescuento');
+console.log({
+	p_precioProducto: p_precioProducto,
+	p_porcentajeDescuento: p_porcentajeDescuento,
+	_PORCENTAJE_TOTAL_: _PORCENTAJE_TOTAL_,
+	precioProductoConDescuento: precioProductoConDescuento,
+});
+console.groupEnd();
+```
+
+## 12. Escribiendo HTML desde JavaScript
+
+### innerHTML
+
+innerHTML es una función que se comporta como una propiedad que sirve para enviar u obtener contenido de un elemento html. Pero este lo conservabando el formato html
+
+```html
+<!DOCTYPE html>
+<html>
+	<body>
+		<p id="demo" onclick="myFunction()">
+			Click me to change my HTML content (innerHTML).
+		</p>
+
+		<script>
+			function myFunction() {
+				document.getElementById('demo').innerHTML =
+					'Paragraph changed!';
+			}
+		</script>
+	</body>
+</html>
+```
+
+Referencia:
+
+-   [innerHTML developer.mozilla](https://developer.mozilla.org/es/docs/Web/API/Element/innerHTML)
+-   [innerHTML en w3schools](https://www.w3schools.com/jsref/prop_html_innerhtml.asp)
+
+### innerText innerHTML
+
+Es una función que se comporta como propiedad que sirve para enviar o recuperar contenido en formato texto de un elemento html
+
+```html
+<!DOCTYPE html>
+<html>
+	<body>
+		<p>Click the button get the text content of the button element.</p>
+
+		<button onclick="myFunction()" id="myBtn">Try it</button>
+
+		<p>
+			<strong>Note:</strong> The innerText property is not supported in
+			Internet Explorer 9 and earlier.
+		</p>
+
+		<p id="demo"></p>
+
+		<script>
+			function myFunction() {
+				var x = document.getElementById('myBtn').innerText;
+				document.getElementById('demo').innerHTML = x;
+			}
+		</script>
+	</body>
+</html>
+```
+
+Referencia:
+
+-   [innerTEXT en w3school](https://www.w3schools.com/jsref/prop_node_innertext.asp)
+
+### Diferencia entre innerText vs innerHTML
+
+#### innerHTML
+
+-   Obtiene y manda contenido en el formato HTML.
+-   Podemos insertar etiquetas HTML.
+-   Considera los espacios-
+-   Devuelve la etiqueta con una etiqueta de su interior.
+
+#### innerText
+
+-   Obtiene y manda el contenido en texto plano.
+-   No podemos insertar etiquetas HTML, solo texto.
+-   ignora los espacios.
+-   Devuelve solamente el texto sin la etiqueta que lo contiene
+
+[segundo taller práctico de javascript](https://github.com/angel20125/curso-practico-javascript/tree/main/2-segundo-taller-productos-descuentos)
+
+## 13. Reto: funciones más inteligentes
+
+Nuestros clientes están muy felices de poder calcular el precio final de sus productos después del descuento, pero la tienda tiene una nueva solicitud para nosotros: **implementar descuentos con cupones**.
+
+Déjame tu solución en los comentarios y luego, sí, evalúa mis 3 propuestas.
+
+### Solución #1: arrays y switch
+
+Analicemos el problema y nuestra propuesta de solución:
+
+-   Crearemos un array con cada uno de nuestros cupones.
+-   Cambiaremos el input de descuento en HTML por un input de cupones.
+-   Usaremos un condicional switch para aplicar cierto porcentaje de descuento en nuestros productos dependiendo del cupón que se haya elegido al presionar el botón del formulario.
+
+Vamos paso a paso:
+
+-   **Crear un array de cupones**
+
+```js
+const coupons = [
+	'JuanDC_es_Batman',
+	'pero_no_le_digas_a_nadie',
+	'es_un_secreto',
+];
+```
+
+-   **Cambiar el input de descuento por uno de cupones**
+
+Cambiemos los IDs en HTML:
+
+```html
+<label for="InputCoupon">Escribe el cupón de descuento para tu producto:</label>
+<input id="InputCoupon" type="number" />
+```
+
+Y actualicemos nuestras referencias en el código JavaScript:
+
+```js
+const inputCoupon = document.getElementById('InputCoupon');
+const couponValue = inputCoupon.value;
+```
+
+-   **Crear una variable descuento y asignarle un valor distinto con un switch**
+
+```js
+function onClickButtonPriceDiscount() {
+	const inputPrice = document.getElementById('InputPrice');
+	const priceValue = inputPrice.value;
+
+	const inputCoupon = document.getElementById('InputCoupon');
+	const couponValue = inputCoupon.value;
+
+	let descuento;
+
+	switch (couponValue) {
+		case 'JuanDC_es_Batman':
+			descuento = 15;
+			break;
+		case 'pero_no_le_digas_a_nadie':
+			descuento = 30;
+			break;
+		case 'es_un_secreto':
+			descuento = 25;
+			break;
+	}
+
+	const precioConDescuento = calcularPrecioConDescuento(
+		priceValue,
+		descuento
+	);
+
+	const resultP = document.getElementById('ResultP');
+	resultP.innerText = 'El precio con descuento son: $' + precioConDescuento;
+}
+```
+
+### Solución #2: legibilidad, error first y muerte al switch
+
+**Legibilidad** es la facilidad que ofrece nuestro código para entenderlo sin tropiezos cuando lo leemos. Mejorar la legibilidad es mucho más importante que reducir la cantidad de líneas de código.
+
+Además, **error-first** es un patrón de programación donde atrapamos los errores antes de escribir el resto de la lógica de nuestros programas. Aplicar error-first nos puede ayudar a mejorar la legibilidad de nuestro código (es completamente válido tener otra opinión, no te preocupes, cuéntame en los comentarios).
+
+-   **Error first con array.includes**
+
+La función `array.includes()` nos permite validar si un elemento ha sido almacenado en el array. Vamos a usar esta función para ejecutar un error si el cupón de los usuarios es inválido (no fue guardado en el array `coupons`):
+
+```js
+if (!coupons.includes(userCouponValue)) {
+	alert('El cupón ' + couponValue + 'no es válido');
+}
+```
+
+Ya que estamos usando un condicional `if`, podemos reescribir el resto del condicional `switch`, pero en este caso usaremos condicionales `else if`:
+
+```js
+if (!coupons.includes(couponValue)) {
+	alert('El cupón ' + couponValue + 'no es válido');
+} else if (couponValue === 'JuanDC_es_Batman') {
+	descuento = 15;
+} else if (couponValue === 'pero_no_le_digas_a_nadie') {
+	descuento = 30;
+} else if (couponValue === 'es_un_secreto') {
+	descuento = 25;
+}
+```
+
+### Solución #3: arrays y condicionales mucho más inteligentes
+
+Ya usamos uno de los muchos métodos de los arrays para aplicar error first. Pero podemos usar algunos más para simplificar aún más nuestro código.
+
+> 💡 Recuerda que mejorar la legibilidad no (necesariamente) significa reducir líneas de código.
+
+-   **Array de cupones 2.0: ahora también con los descuentos**
+
+Por ahora tenemos muy separada la lógica de nuestros cupones. Por un lado tenemos la lista de cupones, pero en otro lugar distinto definimos el descuento de cada cupón.
+
+Vamos a cambiar eso convirtiendo nuestro array de strings en un array de objetos (con el nombre y descuento de cada cupón en el mismo lugar):
+
+```js
+const coupons = [
+	{
+		name: 'JuanDC_es_Batman',
+		discount: 15,
+	},
+	{
+		name: 'pero_no_le_digas_a_nadie',
+		discount: 30,
+	},
+	{
+		name: 'es_un_secreto',
+		discount: 25,
+	},
+];
+```
+
+Ahora la función `array.includes` dejó de funcionar, pero podemos reemplazarla por la función `array.find()` para validar si el cupón que escribió el usuario está guardado en la propiedad `name` de alguno de los objetos en la lista de cupones.
+
+Vamos a crear una variable `isUserCouponValueValid` con una función que valide si su parámetro `coupon` es igual a nuestra variable `userCouponValue`. Y esta variable la vamos a enviar como parámetro a nuestra función `array.find()`.
+
+```js
+const isCouponValueValid = function (coupon) {
+	return coupon.name === couponValue;
+};
+
+const userCoupon = coupons.find(isCouponValueValid);
+
+if (!userCoupon) {
+	alert('El cupón ' + userCouponValue + 'no es válido');
+}
+```
+
+¡Muy bien!
+
+Pero fíjate que ya tenemos nuestro cupón (con nombre y **descuento**) disponible en la nueva variable `userCoupon`.
+
+Podemos aprovechar esta variable para eliminar todos nuestros condicionales `else if` y cambiarlos por un condicional `else` que nos proporcione el porcentaje de descuento automáticamente, sin importar el cupón (válido) que estén usando nuestros usuarios.
+
+```js
+if (!userCoupon) {
+	alert('El cupón ' + userCouponValue + 'no es válido');
+} else {
+	const descuento = userCoupon.discount;
+	const precioConDescuento = calcularPrecioConDescuento(
+		priceValue,
+		descuento
+	);
+
+	const resultP = document.getElementById('ResultP');
+	resultP.innerText = 'El precio con descuento son: $' + precioConDescuento;
+}
+```
+
+De esta forma, no solo logramos reducir las líneas de código de nuestro programa, sino también mejorar su legibilidad.
+
+---
+
+¡Te espero en la siguiente clase para que iniciemos nuestro tercer taller práctico del curso!
+
+## Reto 2 completado
+
+[reto 2 ](https://github.com/angel20125/curso-practico-javascript/tree/main/retos/reto-2) completado
+
+# Capítulo IV: Taller #3 promedio moda y mediana
+
+## 14. Qué es promedio, moda y mediana
+
+### Media o promedio aritmético:
+
+Consiste en sumar una serie de valores y luego dividirlo por la cantidad de valores sumados. Esta herramienta es útil cuando los valores tiene un valor máximo que puede alcanzar y por su puesto tienen una estrecha relación entre sí.
+
+Un ejemplo donde es útil sería un promedio de notas, un alumno tiene la siguiente serie de notas entre sus exámenes
+nota examen 1: 20
+nota examen 2: 15
+nota examen 3: 19
+notas
+
+promedio = (20 + 15 + 19) = 54/ 3 = 18
+
+Es importante destacar que si se introduce un “dato atípico” los resultados no serian muy acertados. Un ejemplo en donde esta herramienta no sería útil seria sería en el promedio serial de una persona que están en un bar, ya que puede surgir datos atípicos y puede haber una persona con un salario muy alto.
+
+.
+
+### Mediana:
+
+Este consiste en tener un número de elementos numéricos ordenados en forma ascendente:
+
+-   Si el número de datos que hay en el “arreglo” es impar escogemos el número de la mitad: Si fueran 15 posiciones escogemos la posición 8
+
+-   Si el número de datos que hay en el “arreglo” es par escogemos el valor de las dos posiciones del centro y las dividimos en dos: Si fuera 16 escogemos la posición 8 y 9 y la dividimos entre 2
+
+Este proceso es mucho más óptimo que la media aritmética, ya que los datos atípicos no afectaran demasiado el valor final.
+.
+
+### Moda:
+
+Este es el dato que más se repite en un conjunto de datos si tenemos el siguiente arreglo [10,9,8,10,8,10,8,7,9] y vemos que dos números se repiten la misma cantidad de veces, simplemente se ponen los dos [8,10].
+Este tipo de proceso es muy funcional cuando no solo queremos hablar de tipos de datos numéricos, también pueden ser cadenas de texto y demás.
+
+## 15. Calculando el promedio en JavaScript
+
+### Recorriendo un array para calcular la media aritmética
+
+Existen tres múltiples forma de recorrer un array
+
+#### For
+
+Recorriendo el array con un for
+
+```js
+const _SALARY_LIST_ = [100, 200, 300, 500];
+
+let salaryTotal = 0;
+let averageSalary = 0;
+
+for (let i = 0; i < _SALARY_LIST_.length; i++) {
+	salaryTotal = salaryTotal + _SALARY_LIST_[i];
+}
+
+averageSalary = salaryTotal / _SALARY_LIST_.length;
+
+console.log(`Valor total de salarios: ${salaryTotal}`);
+console.log(`Valor del promedio salarial: ${averageSalary}`);
+```
+
+#### for of
+
+```js
+const _SALARY_LIST_ = [100, 200, 300, 500];
+
+let salaryTotal = 0;
+let averageSalary = 0;
+
+for (let individualSalary of _SALARY_LIST_) {
+	salaryTotal = salaryTotal + individualSalary;
+}
+
+averageSalary = salaryTotal / _SALARY_LIST_.length;
+console.log(`Valor total de salarios: ${salaryTotal}`);
+console.log(`Valor del promedio salarial: ${averageSalary}`);
+```
+
+### array.reduce
+
+-   El Array.reduce() método ejecuta una función reductora para cada valor de una matriz.
+-   Array.reduce() devuelve un valor único que es el resultado acumulado de la función.
+-   Array.reduce() no ejecuta la función para elementos de matriz vacíos.
+-   Array.reduce() no cambia la matriz original.
+
+```js
+const _SALARY_LIST_ = [100, 200, 300, 500];
+
+let salaryTotal = 0;
+let averageSalary = 0;
+
+salaryTotal = _SALARY_LIST_.reduce(function (
+	valueAcumulate = 0,
+	currentSalary
+) {
+	return valueAcumulate + currentSalary;
+});
+
+averageSalary = salaryTotal / _SALARY_LIST_.length;
+console.log(`Valor total de salarios: ${salaryTotal}`);
+console.log(`Valor del promedio salarial: ${averageSalary}`);
+```
+
+## 16. Calculando la mediana en Javascript
+
+### Ordenar número con array.sort()
+
+Ordenar ascendentemente
+
+```javascript
+const numbers = [3, 23, 12];
+
+numbers.sort(function (a, b) {
+	return a - b;
+}); // --> 3, 12, 23
+```
+
+Ordenar descendentemente
+
+```javascript
+const numbers = [3, 23, 12];
+
+numbers.sort(function (a, b) {
+	return b - a;
+}); // --> 23, 12, 3
+```
+
+Referencia para ordenar lista de números con sort
+
+-   [MDN Ordenamiento con sort](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+    [FREECODECAMP Ordenamiento con sort](https://www.freecodecamp.org/news/javascript-array-sort-tutorial-how-to-use-js-sort-methods-with-code-examples/)
+
+## 17. Calculando la moda en Javascript
+
+La moda consiste encontrar los valores que más se repiten
+
+Se puede agrupar elementos dentro de un objeto y contar las incidencias de un array
+
+```javascript
+/**
+ *  función que ordena una lista de números enteros de forma ascendentemente
+ * @param {*} p_list: array de números enteros
+ * @returns p_list: array de nú
+ */
+function orderList(p_list) {
+	// se crea una copia del array por parámetro
+	const list = p_list.slice();
+	// ordena lista de salarios
+	list.sort(function (a, b) {
+		return a - b;
+	});
+	console.group('Ordenando elementos');
+	console.log(list);
+	console.groupEnd();
+	return list;
+}
+
+/**
+ * función encargada de agrupar y  contar los elementos
+ * @param {*} p_list: array de valores enteros
+ * @returns  listGroup: un objeto con los valores enteros agrupados
+ */
+function groupList(p_list) {
+	// se crea una copia del array por parámetro
+	const list = p_list.slice();
+	let listGroup = {};
+
+	list.map(function (p_element) {
+		if (listGroup[p_element]) {
+			// si existe el grupo para el elemento que se desea agrupar
+			//entonces se cuenta 1
+			listGroup[p_element] += 1;
+		} else {
+			// si no existe el grupo para el elemento que se desea agrupar
+			// entonces se  crea el grupo y se  inicializa la cuenta en 1
+			listGroup[p_element] = 1;
+		}
+	});
+
+	console.group('Agrupando elementos');
+	console.log(listGroup);
+	console.groupEnd();
+	return listGroup;
+}
+
+/**
+ * función encargada de calcular la moda
+ * @returns moda: retorna valor que  más se repite
+ */
+function arithmeticModa() {
+	let moda = 0;
+	let valuesByCategories = {};
+	let valuesByCategoriesToArray = [];
+
+	// 1. Se grupan los elementos y se cuentan por categoría en un  objecto
+	valuesByCategories = groupList(SALARY_LIST);
+	// 2. Se convierte el la lista de objetos en un array
+	valuesByCategoriesToArray = Object.entries(valuesByCategories);
+	// 3.  Se ordena el array de mayor a menor según las veces
+	// que se repite un elemento
+	valuesByCategoriesToArray.sort(function (a, b) {
+		return a[1] - b[1];
+	});
+	//4. finalmente la moda es el valor
+	moda = valuesByCategoriesToArray[valuesByCategoriesToArray.length - 1];
+
+	return parseInt(moda);
+}
+
+const inputResultModaSalary = document.getElementById('inputResultModaSalary');
+const inputResultListSalarys = document.getElementById(
+	'inputResultListSalarys'
+);
+
+const SALARY_LIST = [100, 200, 300, 100, 200, 300, 400, 200, 200, 200, 100];
+
+// Se  muestran los resultados en html
+inputResultListSalarys.innerText = `${SALARY_LIST}`;
+inputResultModaSalary.innerText = `${moda}`;
+```
+
+## 18. Reto: calcula otros tipos de promedio
+
+En las clases prácticas de este taller aprendimos a calcular el promedio (media aritmética), la mediana y la moda con JavaScript. En este reto debes encontrar la fórmula de algún otro tipo de promedio, trabajar con alguno de sus casos de uso útiles y traducirlo a código JavaScript.
+
+Responde las siguientes preguntas en los comentarios:
+
+-   ¿Cuál tipo de promedio elegiste para trabajar?
+-   ¿Qué casos de uso tiene tu tipo de promedio?
+-   ¿Cómo traduces su fórmula a código JavaScript?
+
+Espero tu solución en la sección de aportes.
+
+## Solución al promedio ponderado
+
+Elegí trabajar con la media aritmética ponderada. Este es un promedio muy similar a la media aritmética, pero nos permite definir también el peso, importancia o relevancia de cada elemento en nuestro conjunto de números.
+
+Un caso de uso de la media ponderada es el cálculo de notas académicas cuando cada materia o asignatura otorga diferentes “créditos”.
+
+Esta es su fórmula:
+
+![Promedio ponderado](https://static.platzi.com/media/user_upload/JS%20POO%20random%20thoughts%20%20%286%29-98d0ce55-8e51-436e-a33f-7ec391560f46.jpg)
+
+En español: multiplicar cada número del conjunto por su respectivo crédito, sumar todos los resultados y dividirlo entre la suma de todos los créditos.
+
+> Recuerda que no tienen que ser únicamente 3 números, pueden ser lo que desees, esto solo fue un ejemplo.
+
+Ahora sí, vamos paso a paso implementando el promedio ponderado en JavaScript:
+
+-   **Definir el conjunto de números junto al peso de cada elemento**
+
+Para esto vamos a crear un array de objetos llamado `notes`. Cada objeto tendrá tres valores: `course` con el nombre de la materia (aunque en realidad no lo utilizaremos 😅), `note` con la nota de la materia y `credit` con los créditos de la materia.
+
+```js
+const notes = [
+	{
+		course: 'Educación Física',
+		note: 10,
+		credit: 2,
+	},
+	{
+		course: 'Programación',
+		note: 8,
+		credit: 5,
+	},
+	{
+		course: 'Finanzas personales',
+		note: 7,
+		credit: 5,
+	},
+];
+```
+
+Ahora vamos paso a paso construyendo nuestra máquina para sacar promedios ponderados.
+
+-   **Multiplicar cada número de la lista por su peso**
+
+Vamos a usar de nuevo el método `map` de los arrays. Crearemos un nuevo arreglo de solo números a partir de multiplicar cada nota con sus créditos.
+
+```js
+const notesWithCredit = notes.map(function (noteObject) {
+	return noteObject.note * noteObject.credit;
+});
+```
+
+-   **Sumar todos los elementos del arreglo de elementos multiplicados por su peso**
+
+Vamos a usar de nuevo el método `reduce` de los arrays.
+
+Crearemos una nueva variable `notesWithCredit` que tenga como resultado la suma de todos los elementos del arreglo `sumOfNotesWithCredit`. Recuerda que la función `reduce` recibe una función con dos parámetros: el valor acumulado (que para evitar errores debemos inicializar con 0) y el nuevo elemento de los arrays.
+
+```js
+const sumOfNotesWithCredit = notesWithCredit.reduce(function (sum = 0, newVal) {
+	return sum + newVal;
+});
+```
+
+-   **Sumar todos los pesos (créditos)**
+
+Sí, otra vez `map` y `reduce`. Vamos a crear un nuevo arreglo `credits` únicamente con los créditos de cada materia y otra nueva variable `sumOfCredits` que recorra el arreglo `credits` y sume sus elementos.
+
+```js
+const credits = notes.map(function (noteObject) {
+	return noteObject.credit;
+});
+
+const sumOfCredits = credits.reduce(function (sum = 0, newVal) {
+	return sum + newVal;
+});
+```
+
+-   **Hacer la división entre ambas “sumas”**
+
+Lo último que nos falta es dividir nuestra variable `sumOfNotesWithCredit` sobre la variable `sumOfCredits`.
+
+```js
+const promedioPonderadoNotasConCreditos = sumOfNotesWithCredit / sumOfCredits;
+```
+
+En este caso, el promedio ponderado de una nota de 10 con créditos de 2, otra nota de 8 con un crédito de 5 y una última nota de 7 con créditos de 5 nos da como resultado `7.916`.
+
+La media aritmética sin tener en cuenta el peso de cada nota habría sido `8.333`.
+
+---
+
+Espero que este último ejercicio te haya ayudado a interiorizar un poco más el uso de los métodos de los arrays para obtener diferentes resultados con ellos.
+
+Te espero en la siguiente clase para iniciar nuestro último y más avanzado taller de este curso.
+
+## Reto 3
+
+Responde las siguientes preguntas en los comentarios:
+
+-   ¿Cuál tipo de promedio elegiste para trabajar?
+    Tipo de promedio que decidí utilizar fue la media geométrica
+
+-   ¿Qué casos de uso tiene tu tipo de promedio?
+    Es una medida de tendencia central que puede utilizarse para mostrar los cambios porcentuales en una serie de números positivos. Como tal, tiene una amplia aplicación en los negocios y en la economía, debido a que con frecuencia se está interesado en establecer el cambio porcentual en las ventas en el producto interno bruto o en cualquier serie económica. Se define como la raíz índice n del producto de n términos. La media geométrica se utiliza con más frecuencia para calcular la tasa de crecimiento porcentual promedio de algunas series dadas, a través del tiempo.
+
+-   ¿Cómo traduces su fórmula a código JavaScript?
+    Si el crecimiento de las ventas en un negocio fue en los tres último años de 26%, 32% y 28%, hallar la media anual del crecimiento.
+
+```javascript
+/**
+ *  función que se encarga de cálcular la raíz para cualquier
+ *  índice
+ * @param {*} number: representa el radicando, de la raíz
+ * @param {*} n: representa el índice
+ * @returns
+ */
+function rootForAnyIndex(number, n) {
+	let result = 0;
+	// si los los parámetros son distintos de número retorna null
+	if (typeof number !== 'number' || typeof n !== 'number') {
+		return null;
+	}
+	// cálculo para números negativos no está definido
+	if (number < 0) {
+		return undefined;
+	}
+	result = Math.pow(number, 1 / n);
+	return result;
+}
+
+/**
+ *función encargada de cálcular el factor de crecimiento (growthFactor)
+  de un valor porcentual
+ * @param {*} p_list: lista porcentuales de ventas
+ * @returns
+ */
+function growthFactor(p_list) {
+	let listGrowFactor = p_list.map(function (value) {
+		value = 1 + value / 100;
+		return value;
+	});
+	console.group('growthFactor');
+	console.log(listGrowFactor);
+	console.groupEnd();
+	return listGrowFactor;
+}
+
+/**
+ *
+ * @param {*} p_list
+ * @returns
+ */
+function geometricAverage(p_list) {
+	console.group('geometricAverage');
+	let n = 0;
+	let resultMultiplication = 0;
+	let resultGeometricAverage = 0;
+
+	//se obtiene el índece  de la raíz
+	n = p_list.length;
+	// se múltiplca los factores de crecimiento
+	resultMultiplication = p_list.reduce(function (
+		valueAcumulate,
+		currentValue
+	) {
+		return parseFloat(valueAcumulate * currentValue);
+	});
+
+	//se cálcula el valor de la raíz
+	resultGeometricAverage = rootForAnyIndex(resultMultiplication, n);
+
+	return resultGeometricAverage;
+}
+
+const inputListAnnualPercentageOfSales = document.getElementById(
+	'inputListAnnualPercentageOfSales'
+);
+const inputResulGeometricAverage = document.getElementById(
+	'inputResulGeometricAverage'
+);
+
+const listSalesPercentageAnual = [26, 32, 28];
+
+const resultGrowFactor = growthFactor(listSalesPercentageAnual);
+const resultGeometricAverage = geometricAverage(resultGrowFactor);
+
+// Se muestra los resultados en la página html
+inputListAnnualPercentageOfSales.innerText = `${listSalesPercentageAnual} %`;
+inputResulGeometricAverage.innerText = `${resultGeometricAverage}`;
+```
+
+Referencia
+
+-   [media geométrica](https://www.uaeh.edu.mx/docencia/VI_Lectura/licenciatura/documentos/LEC4.pdf)
+
+# Capítulo IV: Taller #4 análisis salarial
+
+## 19. ## Análisis: cómo analizar salarios
+
+## 20. Calculando la mediana de salarios
+
+## 21. Calculando el top 10% de salarios
+
+## 22. Reto: simulación de estudio de salarios
+
+En este módulo pusimos en práctica todo lo que aprendimos en los talleres pasados para calcular la mediana de salarios de tu país (aunque por ahora son solo datos ficticios).
+
+Para completar el reto de este último taller solo debes dejar volar tu imaginación y usar todas las herramientas que aprendiste para **expandir tu análisis salarial**.
+
+##Reto 4: ¿Cómo? Como quieras
+
+Puedes calcular la mediana de ingresos no fijos, capacidad de ahorro, capacidad de endeudamiento, recolección de impuestos, diferencia salarial, relación entre formalidad/informalidad y pobreza/riqueza…
+
+El reto es de tema libre. Escoge la pregunta que prefieras, incluso mejor si has vivido una situación parecida alguna vez, resuélvela y muéstranos tu solución en los comentarios.
+
+Para lograrlo solo debes seguir los siguientes pasos:
+
+-   Plantea muy detalladamente el problema/análisis/cálculo/hipótesis que quieres resolver.
+-   Encuentra las fórmulas necesarias para resolver el dilema que seleccionaste.
+-   Define las variables y funciones para resolver tus fórmulas.
+-   Presenta los resultados de tu informe en una página web dinámica usando HTML, CSS y JavaScript.
+-   Organiza y documenta tu código para que sea más fácil de leer y entender.
+-   Publícalo en tu repositorio de GitHub y muéstranos el link en la sección de comentarios.
+
+Te recomiendo que inicies con una pregunta sencilla. Pon un tiempo límite generoso, desarrolla tu proyecto hasta el final y publica tus resultados en la sección de comentarios.
+
+Luego vuelve a empezar con una pregunta más compleja. Y así sucesivamente hasta que tu estudio de salarios sea el proyecto del que más orgullosa te puedas sentir.
+
+> Estoy seguro de que los siguientes Platzi Lives serán una gran fuente de inspiración:
+>
+> -   [Qué está pasando en Colombia y por qué hay protestas](https://www.youtube.com/watch?v=1oiTB_4tcx0)
+> -   [Qué está pasando en Colombia en el 2021](https://www.youtube.com/watch?v=8LjOG7FSL_Q)
+> -   [Por qué hay protestas en Chile](https://www.youtube.com/watch?v=8LjOG7FSL_Q)
+> -   [Qué es la Economía Naranja (y qué no)](https://www.youtube.com/watch?v=fs31Woz8f80)
+> -   [La economía de un programador](https://www.youtube.com/watch?v=8LjOG7FSL_Q)
+> -   [Cuánto ganarán los programadores en el 2020 y 2021](https://www.youtube.com/watch?v=sauDgFSUmsM)
+> -   [Los próximos 4 años de la industria Tech en Latinoamérica](https://www.youtube.com/watch?v=UKNv_z5OvCY)
+> -   [¿Eres de izquierda o de derecha?](https://www.youtube.com/watch?v=NE0di4Aqa_Q)
+> -   [Qué es la Bolsa de Valores](https://www.youtube.com/watch?v=WQFXlJTU1To)
+> -   [Cómo prepararte para una recesión económica](https://www.youtube.com/watch?v=JCMYjez93pk)
+> -   [Por qué hay crisis económica y en qué invertir](https://www.youtube.com/watch?v=ZrYD4aLqo7w)
+
+## Complementos
+
+Si sigues adelante con la [Escuela de Desarrollo Web](https://platzi.com/web), vas a aprender muchas más herramientas de JavaScript para consultar datos desde el backend y manipular el DOM aún más intensamente.
+
+También puedes complementar tu ruta de aprendizaje con la [Escuela de Data Science](https://platzi.com/datos). Ahí aprenderás a muchísima, muchísima más profundidad cómo limpiar, consultar y presentar informes a partir de un análisis de datos.
+
+Además, en la [Escuela de Finanzas e Inversiones](https://platzi.com/finanzas) puedes iniciar tu educación, planeación y evaluación financiera para todo tipo de proyectos, ya sea con fines personales, emprendedores o incluso inversionistas.
+
+---
+
+Espero ver tus retos en la sección de comentarios. En la próxima clase, como premio a todo tu esfuerzo, publicaremos nuestros proyectos en internet con ayuda de una plataforma llamada GitHub Pages. 💚
